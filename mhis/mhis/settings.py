@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import os
+import django_heroku
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -149,6 +150,8 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'statics'),
 )
 
+
+
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 LOGIN_REDIRECT_URL ='home/'
@@ -161,3 +164,6 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'mangulenjemmanuel@gmail.com'
 EMAIL_HOST_PASSWORD = 'mangulenjemanzy'
+
+# Activate Django-Heroku.
+django_heroku.settings(locals())

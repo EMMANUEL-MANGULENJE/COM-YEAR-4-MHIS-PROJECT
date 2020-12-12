@@ -156,15 +156,20 @@ body {
 
                 <li class="navbar-item active"><a class='nav-link' href="#"></a></li>
   
-               
-                 <li class="navbar-item active"><a class='nav-link' href="{% url 'logout' %}"><i class="fa fa-fw fa-user"></i>Logout</a></li>
+                <li class="navbar-item dropdown active"><a class='nav-link dropdown-toggle' data-toggle="dropdown" href="#"><i class="fa fa-fw fa-user"></i>Profile</a>
+                  <div class='dropdown-menu'>
+                      <a class='dropdown-item' href="{% url 'logout' %}">Logout</a>
+                      <a class='dropdown-item' href="{% url 'change_password' %}">Change Password</a>
+                    </div>
+                </li>
+
              {% else %}
             <li class="nav-item active">
                 <a class="nav-link" href="{% url 'login' %}"><i class="fa fa-fw fa-user"></i>Login</a>
             </li>
-            </ul>
+          </ul>
             {% endif %} 
-               </div>  
+            </div>  
     </nav>
     </div>
     <div class Nav>
