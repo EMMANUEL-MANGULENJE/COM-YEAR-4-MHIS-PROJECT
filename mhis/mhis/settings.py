@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'phonenumber_field',
     'mentcare.apps.MentcareConfig',
     'crispy_forms',
     'django.contrib.admin',

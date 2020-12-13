@@ -123,7 +123,6 @@ def DNotesUpdate(request, pk):
 
 #add patient into the system function
 @login_required
-@allowed_user(allowed_roles = ['RECORDS'])
 def PatientAdd(request):
     form = PatientAddForm(request.POST or None)
     if form.is_valid():
@@ -155,7 +154,6 @@ def DeletePatient(request, pid):
 
 #patient updating function
 @login_required
-@allowed_user(allowed_roles = ['Records'])
 def PatientUpdate(request, pk):
     patient = Patient.objects.get(id=pk) 
     form = PatientAddForm(instance = patient)

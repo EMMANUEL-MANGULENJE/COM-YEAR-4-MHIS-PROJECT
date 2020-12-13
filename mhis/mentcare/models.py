@@ -1,5 +1,6 @@
 from django.db import models
 from datetime import datetime, date
+from phonenumber_field.modelfields import PhoneNumberField
 
 # Create your models here.
 
@@ -81,9 +82,9 @@ class Patient(models.Model):
     nationality = models.CharField(max_length=20)
     home_village = models.CharField(max_length=20)
     home_TA = models.CharField(max_length=20)
-    phone_number = models.IntegerField(null = True)
+    phone_number = PhoneNumberField(region = 'MW', null = True)
     name_of_next_of_kin = models.CharField(max_length=30)
-    phone_of_guardian = models.IntegerField()
+    phone_of_guardian = PhoneNumberField(region = 'MW')
     employment =  models.ForeignKey(Employement, on_delete=models.CASCADE)
     gender = models.ForeignKey(Gender, on_delete=models.CASCADE)
     religion = models.ForeignKey(Religion, on_delete=models.CASCADE)

@@ -3,6 +3,11 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import views as auth_views
 from .models import *
+from django.forms.widgets import *
+from django.forms.fields import *
+
+
+gender_slecet = ('male', 'female')
 
 class DateInput(forms.DateInput):
     input_type = "date"
@@ -37,9 +42,12 @@ class DoctorNotesForm(forms.ModelForm):
 class PatientAddForm(forms.ModelForm):
     class Meta:
         model = Patient
-        fields = ['first_name','surname','gender','home_district','home_TA', 'date_of_birth','religion',
+        fields =  ['first_name','surname','gender','home_district','home_TA', 'date_of_birth','religion',
                 'employment', 'Education_level', 'nationality', 'marital_status', 'tribe','phone_number',
                 'name_of_next_of_kin','phone_of_guardian','history_of_consultation']
+        widgets = {
+            "date_of_birth":DateInput(attrs={'type': 'date'}),
+        }
 
                 
 
@@ -50,6 +58,10 @@ class DischargeForm(forms.ModelForm):
         model = Exit
         fields = '__all__'
 
+        widgets = {
+            "date_of_exit":DateInput(attrs={'type': 'date'}),
+        }
+
 
 
 #Appointment form
@@ -57,6 +69,11 @@ class AppointmentForm(forms.ModelForm):
     class Meta:
         model = Appointment
         fields = '__all__'
+        widgets = {
+            "updated_at":DateInput(attrs={'type': 'date'}),
+            "start_time":TimeInput(attrs={'type': 'time'}),
+            "finish_time":TimeInput(attrs={'type': 'time'}),
+        }
 
 
 
@@ -78,6 +95,11 @@ class MedicalPsychiatricHistoryForm(forms.ModelForm):
     class Meta:
         model = MedicalPsychiatricHistorys
         fields = '__all__'
+
+        widgets = {
+            "date_of_OPD_review":DateInput(attrs={'type': 'date'}),
+            "date_of_OPD_exit":DateInput(attrs={'type': 'date'}),
+        }
 
 
 class PrescriptionForm(forms.ModelForm):

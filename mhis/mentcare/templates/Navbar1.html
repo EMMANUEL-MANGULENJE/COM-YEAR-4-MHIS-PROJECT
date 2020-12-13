@@ -156,7 +156,7 @@ body {
 
                 <li class="navbar-item active"><a class='nav-link' href="#"></a></li>
   
-                <li class="navbar-item dropdown active"><a class='nav-link dropdown-toggle' data-toggle="dropdown" href="#"><i class="fa fa-fw fa-user"></i>Profile</a>
+                <li class="navbar-item dropdown active"><a class='nav-link dropdown-toggle' data-toggle="dropdown" href="#"><i class="fa fa-fw fa-user fa-1.5x" ></i></a>
                   <div class='dropdown-menu'>
                       <a class='dropdown-item' href="{% url 'logout' %}">Logout</a>
                       <a class='dropdown-item' href="{% url 'change_password' %}">Change Password</a>
@@ -165,7 +165,7 @@ body {
 
              {% else %}
             <li class="nav-item active">
-                <a class="nav-link" href="{% url 'login' %}"><i class="fa fa-fw fa-user"></i>Login</a>
+                <a class="nav-link" href="{% url 'login' %}"><i class="fa fa-user-circle-o" aria-hidden="true"></i>Login</a>
             </li>
           </ul>
             {% endif %} 
