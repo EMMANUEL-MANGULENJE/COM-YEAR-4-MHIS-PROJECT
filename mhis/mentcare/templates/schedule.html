@@ -27,42 +27,31 @@
     })
 </script>
 
-<style>
-.button {
-    padding-right:150px;
-}
-</style>
-
-
-<div class = "button">
-<a href = "{% url 'Prescription' %}" <button class="btn btn-outline-info  float-right" >Add Prescription</button></a>
-</div>
 
 <!-- displaying data entry for form for patients -->
-<div class="container" style="margin-top: 50px;", >
-    <h1 class="text-center">Patient Prescription Information</h1>
+<div class="container" style="margin-top: 20px;", >
+    <h3 class="text-center">Monthly Working Calendar</h3>
    
 
 
-    <table class="table table-hover" id="prescription">
+    <table class="ui celled table" id="calendar" style="width:100%">
         <thead>
             <tr>
-                <th>Patient Name</th>
-                <th>Prescription </th>
-                <th>Edit</th>
-                <th>Delete</th>
-                
+                <th>Week Number</th>
+                <th>Employee Names </th>
+                <th>Ward Name</th>
+                <th>Shift</th>
             </tr>
         </thead>
 
 
         <tbody>
-            {% for p in pre %}
+            {% for p in roster %}
             <tr>
-                <td>{{p.patient_name}}</td>
-                <td>{{p.prescription_name }}</td>
-                <td><a href="{% url 'update_prescription' p.id %}"  class="btn btn-primary">Edit</a></td>
-                <td><a href="{% url 'delete_prescription' p.id %}" onclick="return confirm('Are You sure you want to delete?')" class="btn btn-danger">Delete</a></td>
+                <td>{{p.Week_Number}}</td>
+                <td>{{p.Employee_Name}}</td>
+                <td>{{p.Ward_Name}}</td>
+                <td>{{p.Shift }}</td>
                 
             </tr>
             {% endfor %}

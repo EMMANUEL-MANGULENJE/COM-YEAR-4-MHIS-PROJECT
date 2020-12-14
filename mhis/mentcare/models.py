@@ -3,7 +3,6 @@ from datetime import datetime, date
 from phonenumber_field.modelfields import PhoneNumberField
 
 # Create your models here.
-
 #Employee table
 class Employee(models.Model):
     first_name = models.CharField(max_length=20)
@@ -118,7 +117,7 @@ class RefferalMode(models.Model):
 class MedicalPsychiatricHistorys(models.Model):
     patient_name = models.ForeignKey(Patient, on_delete=models.CASCADE)
     referring_institution = models.CharField(max_length=50)
-    last_time_treated_at = models.CharField(max_length=20)
+    last_time_treated_at = models.CharField(max_length=50, null = True)
     region_reffered_from = models.ForeignKey(Region, on_delete=models.CASCADE)
     mode_of_refferal = models.ForeignKey(RefferalMode, on_delete=models.CASCADE)
     history_of_mental_illness_in_family = models.CharField(max_length=5)
@@ -196,11 +195,11 @@ class HIVTest(models.Model):
     if_reactive_is_on_HAART = models.CharField(max_length=5)
     indication_for_HAART = models.ForeignKey(HAARTIndication, on_delete=models.CASCADE)
     how_long_on_HAART = models.ForeignKey(HAARTDuration, on_delete=models.CASCADE)
-    if_on_HAART_when_initiated = models.CharField(max_length=30)
+    if_on_HAART_when_initiated = models.CharField(max_length=30, null = True)
     if_on_HAART_what_is_regime = models.ForeignKey(HAARTRegime, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.HIV_sero_status
+        return str(self.patient_name)
 
 class Exit(models.Model):
     doctor_name = models.ForeignKey(Employee, on_delete=models.CASCADE)
@@ -216,6 +215,9 @@ class DoctorNote(models.Model):
     patient_name = models.ForeignKey(Patient, on_delete=models.CASCADE)
     Doctor_notes = models.TextField(max_length=1000)
 
+    def __str__(self):
+      
+        return self.Doctor_notes
 
 class NurseNote(models.Model):
     patient_name = models.ForeignKey(Patient, on_delete=models.CASCADE)
@@ -224,7 +226,7 @@ class NurseNote(models.Model):
 
 
     def __str__(self):
-        return self.prescription
+        return self.Nurse_notes 
 
 
 
@@ -284,3 +286,12 @@ class Paying_Ward(models.Model):
 
     def __str__(self):
         return str(self.patient_name)#returning a non string type
+
+class Schedules(models.Model):
+    Week_Number = models.IntegerField()
+    Employee_Name  = models.TextField(max_length=1000)
+    Ward_Name = models.TextField(max_length=1000)
+    Shift = models.TextField(max_length=1000)
+
+    def __str__(self):
+        return self.Ward_Name

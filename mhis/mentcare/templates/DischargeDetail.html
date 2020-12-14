@@ -36,7 +36,6 @@
     <table class="table table-hover" id="patient">
         <thead>
             <tr>
-                <th>Discharge ID</th>
                 <th>Doctor Name </th>
                 <th>patient name</th>
                 <th>Prescription</th>
@@ -51,8 +50,7 @@
         <tbody>
             {% for a in discharge %}
             <tr>
-                <td>{{a.id}}</td>
-                <td>{{a.doctor_id}}</td>
+                <td>{{a.doctor_name }}</td>
                 <td>{{a.patient_name}}</td>
                 <td>{{a.final_prescription}}</td>
                 <td>{{a.date_of_exit}}</td>

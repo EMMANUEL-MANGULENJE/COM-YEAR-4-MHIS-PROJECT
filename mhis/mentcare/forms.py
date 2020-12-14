@@ -82,6 +82,10 @@ class HIVStatusForm(forms.ModelForm):
     class Meta:
         model = HIVTest
         fields = '__all__'
+        widgets = {
+            "if_reactive_when_was_tested":DateInput(attrs={'type': 'date'}),
+            "if_on_HAART_when_initiated":DateInput(attrs={'type': 'date'}),
+        }
          
 
 

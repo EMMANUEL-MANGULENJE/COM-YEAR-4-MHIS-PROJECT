@@ -27,7 +27,7 @@ body {
   z-index: 1;
   left: 0;
   overflow-x: auto;
-  padding-top: 71px;
+  padding-top: 60px;
 }
 
 .side {
@@ -39,14 +39,13 @@ body {
 .sidebar a {
   font-size: 16px;
   display: block;
-  color: black;
-  padding: 10px;
+  color: #055A87;
+  padding: 8px;
   text-decoration: none;
-  border-bottom: 2px solid #E5E5E5;
-  border-top: 2px solid #E5E5E5;
-  border-right: 2px solid #E5E5E5;
-  border-left: 10px solid #E5E5E5;
+  border-bottom: 1px solid #E5E5E5;
+  border-top: 1px solid #E5E5E5;
   background: #F5F5F5;
+  padding-left: 30px;
 }
  
 .sidebar a.active {
@@ -85,6 +84,7 @@ div.content {
 
 <div class="side">
 <div class="sidebar">
+<h3 class = "text-center">Quick links</h3>
   <a  href="{% url 'PatientAdd' %}">Patient Personal Data</a>
   <a href="{% url 'MedicalPsychiatricHistory' %}">Medical/Pyschiatric History</a>
   <a href="{% url 'Diagnosis' %}">Diagnoses</a>

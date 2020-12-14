@@ -16,13 +16,13 @@ def home(request):
 
 
 @login_required
-def main(request):
-    return render(request, 'main.html')
+def support(request):
+    return render(request, 'support.html')
 
 
 #nurse data entry form function
 @login_required
-@allowed_user(allowed_roles = ['NURSES'])
+@allowed_user(allowed_roles = ['Doctors'])
 def NurseNotes(request):
     form = NurseNotesForm(request.POST or None)
     if form.is_valid():
@@ -43,7 +43,7 @@ def NurseDetail(request):
     return render(request, 'NurseDetail.html', context)
 
 #delete nurses notes
-@allowed_user(allowed_roles = ['NURSES'])
+@allowed_user(allowed_roles = ['Doctors'])
 @login_required
 def DeleteNnotes(request, pid):
     note = NurseNote.objects.get(id=pid)
@@ -51,7 +51,7 @@ def DeleteNnotes(request, pid):
     return redirect('nurseDetails')
 
 #notes updating function
-@allowed_user(allowed_roles = ['NURSES'])
+@allowed_user(allowed_roles = ['Doctors'])
 @login_required
 def NnotesUpdate(request, pk):
     note = NurseNote.objects.get(id=pk) 
@@ -73,7 +73,7 @@ def NnotesUpdate(request, pk):
 
 #doctor data entry form function
 @login_required
-@allowed_user(allowed_roles = ['DOCTORS'])
+@allowed_user(allowed_roles = ['Doctors'])
 def DoctorNotes(request):
     form = DoctorNotesForm(request.POST or None)
     if form.is_valid():
@@ -93,7 +93,7 @@ def DoctorDetail(request):
 
 
 @login_required
-@allowed_user(allowed_roles = ['DOCTORS'])
+@allowed_user(allowed_roles = ['Doctors'])
 def DeleteDnotes(request, pid):
     notes = DoctorNote.objects.get(id=pid)
     notes.delete()
@@ -102,7 +102,7 @@ def DeleteDnotes(request, pid):
 
 #patient updating function
 @login_required
-@allowed_user(allowed_roles = ['DOCTORS'])
+@allowed_user(allowed_roles = ['Doctors'])
 def DNotesUpdate(request, pk):
     notes = DoctorNote.objects.get(id=pk) 
     form = DoctorNotesForm(instance = notes)
@@ -145,7 +145,7 @@ def patientDetail(request):
 
 #delete patient function
 @login_required
-@allowed_user(allowed_roles = ['Records'])
+@allowed_user(allowed_roles = ['Doctors'])
 def DeletePatient(request, pid):
     patients = Patient.objects.get(id=pid)
     patients.delete()
@@ -154,6 +154,7 @@ def DeletePatient(request, pid):
 
 #patient updating function
 @login_required
+@allowed_user(allowed_roles = ['Doctors'])
 def PatientUpdate(request, pk):
     patient = Patient.objects.get(id=pk) 
     form = PatientAddForm(instance = patient)
@@ -172,7 +173,7 @@ def PatientUpdate(request, pk):
 
 #patient discharge functions
 @login_required
-@allowed_user(allowed_roles = ['Doctors, Nurses'])
+@allowed_user(allowed_roles = ['Doctors'])
 def Discharge(request):
     form = DischargeForm(request.POST or None)
     if form.is_valid():
@@ -193,7 +194,7 @@ def DischargeDetail(request):
 
 
 @login_required
-@allowed_user(allowed_roles = ['Doctors, Nurses'])
+@allowed_user(allowed_roles = ['Doctors'])
 def DeleteDischarge(request, pid):
     discharge = Exit.objects.get(id=pid)
     discharge.delete()
@@ -201,7 +202,7 @@ def DeleteDischarge(request, pid):
 
 
 @login_required
-@allowed_user(allowed_roles = ['Doctors, Nurses'])
+@allowed_user(allowed_roles = ['Doctors'])
 def DischargeUpdate(request, pk):
     discharge = Exit.objects.get(id=pk)
     form = DischargeForm(instance=discharge)
@@ -241,6 +242,7 @@ def AppointmentDetail(request):
     return render(request, 'AppointmentDetail.html', context)
 
 @login_required
+@allowed_user(allowed_roles = ['Doctors'])
 def DeleteAppointment(request, pid):
     appointments = Appointment.objects.get(id=pid)
     appointments.delete()
@@ -248,6 +250,7 @@ def DeleteAppointment(request, pid):
     return redirect('appointmentDetails')
 
 @login_required
+@allowed_user(allowed_roles = ['Doctors'])
 def AppointmentUpdate(request, pk):
     appointments = Appointment.objects.get(id=pk)
     form = AppointmentForm(instance=appointments)
@@ -265,24 +268,55 @@ def AppointmentUpdate(request, pk):
 
 #HIV patient status form
 @login_required
-@allowed_user(allowed_roles = ['Doctors, Nurses'])
+@allowed_user(allowed_roles = ['Doctors'])
 def HIVSeroStatus(request):
     form = HIVStatusForm(request.POST or None)
     if form.is_valid():
         form.save()
         messages.success(request, f' Successfully added')
-        return redirect('patientDetail')
+        return redirect('HIVDetail')
     context = {
         "form": form,
     }
     return render(request, 'HIV.html',{'form':form})
 
 
+@login_required
+def HIVDetail(request):
+    hivaids = HIVTest.objects.all()
+    context = {'hivaids':  hivaids}
+    return render(request, 'HIVDetail.html', context)
+
+@login_required
+@allowed_user(allowed_roles = ['Doctors'])
+def DeleteHIVStatus(request, pid):
+    hivaids = HIVTest.objects.get(id=pid)
+    hivaids.delete()
+    return redirect('HIVDetail')
+
+@login_required
+@allowed_user(allowed_roles = ['Doctors'])
+def HIVStatusUpdate(request, pk):
+    hivaids = HIVTest.objects.get(id=pk)
+    form = HIVStatusForm(instance=hivaids)
+    if request.method == 'POST':
+        form = HIVStatusForm(request.POST, instance=hivaids)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f'Status successfully updated')
+            return redirect('HIVDetail')
+    context = {
+        "form": form,
+    }
+    return render(request, 'HIV.html', context)
+
+
+
 
 
 #diagnosis entry form
 @login_required
-@allowed_user(allowed_roles = ['Doctors, Nurses'])
+@allowed_user(allowed_roles = ['Doctors'])
 def Diagnosis(request):
     form = DiagnosisForm(request.POST or None)
     if form.is_valid():
@@ -303,14 +337,14 @@ def DiagnosisDetail(request):
 
 
 @login_required
-@allowed_user(allowed_roles = ['Doctors, Nurses'])
+@allowed_user(allowed_roles = ['Doctors'])
 def DeleteDiagnosis(request, pid):
     diagnosis = Diagnoses.objects.get(id=pid)
     diagnosis.delete()
     return redirect('diagnosisDetails')
 
 @login_required
-@allowed_user(allowed_roles = ['Doctors, Nurses'])
+@allowed_user(allowed_roles = ['Doctors'])
 def DiagnosisUpdate(request, pk):
     diagnosis = Diagnoses.objects.get(id=pk)
     form = DiagnosisForm(instance=diagnosis)
@@ -331,12 +365,13 @@ def DiagnosisUpdate(request, pk):
 
 #medical/ psychiatric history form function
 @login_required
+@allowed_user(allowed_roles = ['Doctors'])
 def MedicalPsychiatricHistory(request):
     form = MedicalPsychiatricHistoryForm(request.POST or None)
     if form.is_valid():
         form.save()
         messages.success(request, f' Successfully added')
-        return redirect('patientDetail')
+        return redirect('HistoryDetail')
     context = {
         "form": form,
     }
@@ -352,7 +387,7 @@ def HistoryDetail(request):
 
 #prescription form function
 @login_required
-@allowed_user(allowed_roles = ['Doctors, Nurses'])
+@allowed_user(allowed_roles = ['Doctors'])
 def Prescription(request):
     form = PrescriptionForm(request.POST or None)
     if form.is_valid():
@@ -364,8 +399,7 @@ def Prescription(request):
     }
     return render(request, 'Prescription.html', context)
 
-
-#function to get all prescriptions in the database
+@allowed_user(allowed_roles = ['Doctors'])
 @login_required
 def prescriptionDetails(request):
     pre = Prescriptions.objects.all()
@@ -374,14 +408,14 @@ def prescriptionDetails(request):
 
 
 @login_required
-@allowed_user(allowed_roles = ['Doctors, Nurses'])
+@allowed_user(allowed_roles = ['Doctors'])
 def DeletePrescription(request, pid):
     prescription = Prescriptions.objects.get(id=pid)
     prescription.delete()
     return redirect('prescriptionDetails')
 
 @login_required
-@allowed_user(allowed_roles = ['Doctors, Nurses'])
+@allowed_user(allowed_roles = ['Doctors'])
 def PrescriptionUpdate(request, pk):
     prescription = Prescriptions.objects.get(id=pk)
     form = PrescriptionForm(instance=prescription)
@@ -435,7 +469,7 @@ def confirm(request):
 """report functions. adding report, displaying report, 
     updating report and deleting report"""
 @login_required
-@allowed_user(allowed_roles = ['Night Super'])
+@allowed_user(allowed_roles = ['Doctors'])
 def Reports(request):
     form = ReportsForm(request.POST or None)
     if form.is_valid():
@@ -455,14 +489,14 @@ def Rdetail(request):
 
 
 @login_required
-@allowed_user(allowed_roles = ['Night Super'])
+@allowed_user(allowed_roles = ['Doctors'])
 def DeleteReports(request, pid):
     reports = Report.objects.get(id=pid)
     reports.delete()
     return redirect('Rdetail')
 
 @login_required
-@allowed_user(allowed_roles = ['DOCTORS'])
+@allowed_user(allowed_roles = ['Doctors'])
 def ReportsUpdate(request, pk):
     reports = Report.objects.get(id=pk)
     form = ReportsForm(instance=reports)
@@ -517,3 +551,10 @@ def Pward(request):
     count =  Paying_Ward.objects.count()#funcrion to count all patients in the ward
     context = {'payward': payward}
     return render(request, 'Pward.html', {"payward":payward, "count": count})
+
+
+@login_required
+def Cschedule(request):
+    roster = Schedules.objects.all()
+    context = {'roster': roster}
+    return render(request, 'schedule.html', context)

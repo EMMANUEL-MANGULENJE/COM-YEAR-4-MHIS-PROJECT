@@ -26,7 +26,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('home/', home, name ='home'),
     path('register/', register, name = 'register'),
-    path('main/', main, name = 'main'),
+    path('support/', support, name = 'support'),
     
     
     #discharge urls
@@ -48,6 +48,12 @@ urlpatterns = [
     path('Rdetail/', Rdetail, name = 'Rdetail'),
     path('update_Reports(?p<int:pk>)', ReportsUpdate, name='update_Reports'),
     path('delete_Reports(?p<int:pid>)', DeleteReports, name='delete_Reports'),
+
+
+
+    #schedule url
+    path('Cschedule/', Cschedule, name = 'Cschedule'),
+    # path('Schedule/',Schedule, name = 'Schedule'),
     
 
 
@@ -58,10 +64,15 @@ urlpatterns = [
     path('diagnosisDetail/', DiagnosisDetail, name='diagnosisDetails'),
 
 
+    path('HIVSeroStatus/', HIVSeroStatus, name = 'HIVSeroStatus'),
+    path('HIVDetail/', HIVDetail, name = 'HIVDetail'),
+    path('update_HIVSeroStatus(?p<int:pk>)', HIVStatusUpdate, name='update_HIVSeroStatus'), 
+    path('delete_HIVSeroStatus(?p<int:pid>)', DeleteHIVStatus, name='delete_HIVSeroStatus'),
+    
+
     #nurses notes irls
     path('NurseNotes/', NurseNotes, name = 'NurseNotes'),
     path('nurseDetail/', NurseDetail, name='nurseDetails'),
-    path('HIVSeroStatus/', HIVSeroStatus, name = 'HIVSeroStatus'),
     path('update_NurseNotes(?p<int:pk>)', NnotesUpdate, name='update_NurseNotes'), 
     path('delete_NurseNotes(?p<int:pid>)', DeleteNnotes, name='delete_NurseNotes'),
 

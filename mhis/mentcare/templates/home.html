@@ -20,15 +20,14 @@ body {
 
 .sidebar {
   margin: 0;
-  top: 17%;
+  top: 18%;
   width: 250px;
   background-color: #F5F5F5;
   position: fixed;
   height: 100%;
   z-index: 1;
   overflow-x: auto;
-  padding-top: 60px;
-  padding-top: 60px;
+  padding-top: 20px;
   border-bottom: 2px solid #E5E5E5;
   border-top: 2px solid #E5E5E5;
   border-right: 2px solid #E5E5E5;
@@ -96,13 +95,13 @@ div.content {
   {% endif %}
   <a  href="{% url 'MakeAppointment' %}">New Appointments</a>
   <a href="{% url 'Prescription' %}">Add Prescription</a>
-  <a href="{% url 'Rdetail' %}">View Reports</a>
+    <a href="{% url 'Reports' %}">Add Ward Report</a>
+  <a href="{% url 'Rdetail' %}">View Ward Reports</a>
   <a href="{% url 'Diagnosis' %}">Diagnosis</a>
   <a href="{% url 'prescriptionDetails' %}"> Prescription</a>
   <a href="{% url 'HistoryDetail' %}">Patient History</a>
-  <a href="{% url 'Reports' %}">Add Report</a>
+  <a href="{% url 'HIVDetail' %}">HIV Tests</a>
   <a href="{% url 'dischargeDetails' %}">Discharged Patients</a>
-
   <h5 class="text-center"><b>Notes</b></h5>
   <a href="{% url 'doctorDetails' %}">📔 Doctors Notes</a>
   <a href="{% url 'nurseDetails' %}">📓 Nurses Notes</a>
