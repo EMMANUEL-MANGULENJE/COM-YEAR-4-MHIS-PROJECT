@@ -11,6 +11,7 @@
         {% endif %}
 
 
+<!-- report entry form css -->
 <style>
 body {
   margin: 0;
@@ -82,6 +83,8 @@ div.content {
 }
 </style>
 
+
+<!-- this is side bar data for add patint menu -->
 <div class="side">
 <div class="sidebar">
   <a  href="{% url 'PatientAdd' %}">Patient Personal Data</a>
@@ -94,15 +97,15 @@ div.content {
 </div>
 </div>
 
+<!-- this is the section where its contents are displayed on the main window -->
 <div class="content">
-
-     {% load crispy_forms_tags%}
+  {% load crispy_forms_tags%}
 <br/>
 <br/>
 <h1 class="text-center">Wards General Notes</h1>
 <br>
 <br>
-    <!-- Patient Details entry form            -->
+    <!--  Details entry form            -->
    <form method = 'POST' action = ''>
     {% csrf_token%}
 
@@ -115,16 +118,8 @@ div.content {
       <div class="form-group col-md-6 mb-0">
         {{form.General_Report|as_crispy_field}}
       </div>
-    </div>
-
-                
-    
+    </div> 
     <input type = "submit" class="btn btn-primary" value= 'save'/>
     </form>
 </div>
-
-
-
-
- 
-    {% endblock %}
+{% endblock %}

@@ -247,9 +247,10 @@ class Appointment(models.Model):
 class Report(models.Model):
     ward_name = models.CharField(max_length=3000)
     General_Report = models.TextField(max_length=10000)
+    date = models.DateField(max_length = 90)
 
     def __str__(self):
-        return self.ward_name
+        return self.DATE
 
 
 #Patients wards tables

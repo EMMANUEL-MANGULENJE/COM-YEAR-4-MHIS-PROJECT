@@ -116,3 +116,7 @@ class ReportsForm(forms.ModelForm):
     class Meta:
         model  = Report
         fields ='__all__'
+
+         widgets = {
+            "date":DateInput(attrs={'type': 'date'}),
+        }
